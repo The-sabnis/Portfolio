@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  background-color: #020617;
+  /* We only hide horizontal scroll now, so the page can scroll up and down! */
+  overflow-x: hidden; 
+}
