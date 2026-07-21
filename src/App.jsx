@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { motion, animate, useInView, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, animate, useInView, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import {
   Database, Sun, Moon,
   CheckCircle2, ArrowRight, Code, Mail, Phone, MapPin, Layout, Activity, Cpu, Award,
@@ -270,11 +270,11 @@ function DataPacket({ radius, tilt, speed, offset = 0, color }) {
 // ─────────────────────────────────────────
 function AnimatedCounter({ from, to, suffix='', label, t }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const inView = useInView(ref, { once: true, margin: '0px' });
   const [value, setValue] = useState(from);
   useEffect(() => {
     if (inView) {
-      const c = animate(from, to, { duration: 2.5, ease: 'easeOut', onUpdate: v => setValue(Math.floor(v)) });
+      const c = animate(from, to, { duration: 1.1, ease: 'easeOut', onUpdate: v => setValue(Math.floor(v)) });
       return () => c.stop();
     }
   }, [from, to, inView]);
@@ -711,7 +711,7 @@ export default function PortfolioApp() {
                 </button>
               ))}
             </div>
-            <button onClick={() => setIsDark(!isDark)}
+            <button type="button" onClick={() => setIsDark(!isDark)}
               className="p-2 rounded-full transition-colors"
               style={{ background: t.surfaceAlt, color: isDark ? '#facc15':'#475569' }}>
               {isDark ? <Sun size={16}/> : <Moon size={16}/>}
@@ -723,9 +723,11 @@ export default function PortfolioApp() {
               onMouseLeave={e => { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=t.accent; }}>
               Resume
             </a>
-            <button onClick={() => setMobileOpen(o => !o)}
-              className="md:hidden p-2 rounded-full transition-colors"
-              style={{ background: t.surfaceAlt, color: t.text }}
+            <button
+              type="button"
+              onClick={() => setMobileOpen(o => !o)}
+              className="md:hidden relative z-10 p-2 rounded-full transition-colors"
+              style={{ background: t.surfaceAlt, color: t.text, touchAction: 'manipulation' }}
               aria-label="Toggle menu">
               {mobileOpen ? <X size={18}/> : <Menu size={18}/>}
             </button>
@@ -733,34 +735,28 @@ export default function PortfolioApp() {
         </div>
 
         {/* mobile dropdown — links + resume, only rendered on small screens */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: 'easeInOut' }}
-              className="md:hidden overflow-hidden"
-              style={{ borderTop: `1px solid ${t.border}`, background: t.surface }}
-            >
-              <div className="px-5 py-4 flex flex-col gap-1">
-                {['experience','projects','skills'].map(s => (
-                  <button key={s} onClick={() => { scrollTo(s); setMobileOpen(false); }}
-                    className="capitalize text-left py-2.5 text-sm font-semibold rounded-lg px-2 transition-colors"
-                    style={{ color: t.text }}>
-                    {s}
-                  </button>
-                ))}
-                <a href="/Sarvesh%20Sabnis.pdf" download="Sarvesh_Sabnis_Resume.pdf"
-                  onClick={() => setMobileOpen(false)}
-                  className="mt-2 text-center px-4 py-2.5 text-sm font-semibold rounded-full"
-                  style={{ border:`1px solid ${t.accent}`, color: t.accent }}>
-                  Resume
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {mobileOpen && (
+          <div
+            className="md:hidden"
+            style={{ borderTop: `1px solid ${t.border}`, background: t.surface }}
+          >
+            <div className="px-5 py-4 flex flex-col gap-1">
+              {['experience','projects','skills'].map(s => (
+                <button key={s} type="button" onClick={() => { scrollTo(s); setMobileOpen(false); }}
+                  className="capitalize text-left py-2.5 text-sm font-semibold rounded-lg px-2 transition-colors"
+                  style={{ color: t.text }}>
+                  {s}
+                </button>
+              ))}
+              <a href="/Sarvesh%20Sabnis.pdf" download="Sarvesh_Sabnis_Resume.pdf"
+                onClick={() => setMobileOpen(false)}
+                className="mt-2 text-center px-4 py-2.5 text-sm font-semibold rounded-full"
+                style={{ border:`1px solid ${t.accent}`, color: t.accent }}>
+                Resume
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       <div className="relative z-10">
