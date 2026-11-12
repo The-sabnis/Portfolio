@@ -1,8 +1,107 @@
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  background-color: #020617;
-  /* We only hide horizontal scroll now, so the page can scroll up and down! */
-  overflow-x: hidden; 
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+    background-color: #000000;
+  }
+
+  body {
+    margin: 0;
+    background-color: #000000;
+    color: #f5f5f7;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif);
+    letter-spacing: -0.012em;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Apple-inspired refined minimal dark scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #262629;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3e;
+  }
+
+  ::selection {
+    background-color: rgba(41, 151, 255, 0.35);
+    color: #ffffff;
+  }
+}
+
+/* Apple typography utilities */
+.apple-headline {
+  letter-spacing: -0.035em;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+.apple-subheadline {
+  letter-spacing: -0.015em;
+  color: #86868b;
+}
+
+/* Apple Glass & Surface system */
+.apple-glass {
+  background-color: rgba(14, 14, 16, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.apple-glass-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%), #0d0d10;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+.apple-card {
+  background-color: #0d0d10;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+}
+
+.apple-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-card-hover:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(41, 151, 255, 0.12);
+}
+
+/* Subtle hairline divider */
+.apple-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 20%, rgba(255, 255, 255, 0.08) 80%, transparent);
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

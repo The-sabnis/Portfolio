@@ -7,16 +7,65 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Environment variables
+.env
+.env.*
+!.env.example
+*.local
+
+# Dependencies
 node_modules
+
+# Build, cache, and test artifacts
 dist
 dist-ssr
-*.local
+build
+coverage
+.next
+.vite
+.cache
+.parcel-cache
+.eslintcache
+*.tsbuildinfo
+
+# Credentials, certificates, and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+*credentials*.json
+*serviceAccount*.json
+firebase-adminsdk*.json
+.npmrc
+
+# Local databases, backups, and temporary files
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+*.tmp
+*.temp
+*.orig
+
+# Operating system files
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
+.vs
 *.suo
 *.ntvs*
 *.njsproj
